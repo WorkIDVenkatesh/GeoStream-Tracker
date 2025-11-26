@@ -1,0 +1,377 @@
+/* --- 1. GLOBAL RESET --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevents scrollbars */
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hidden { 
+    display: none !important; 
+}
+
+/* --- 2. MODERN LOGIN SCREEN --- */
+#login-screen {
+    position: fixed;        /* Floating on top of everything */
+    top: 0; 
+    left: 0;
+    width: 100%;            /* Full Width */
+    height: 100%;           /* Full Height */
+    background: rgba(0, 0, 0, 0.6); /* Dark background */
+    backdrop-filter: blur(5px);     /* Blur effect */
+    display: flex;          /* Enables Flexbox */
+    justify-content: center; /* Center Horizontally (Left/Right) */
+    align-items: center;     /* Center Vertically (Up/Down) */
+    z-index: 9999;          /* Ensure it is on top of the map */
+}
+
+.login-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-box h2 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Input Groups (Room & Password) */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #666;
+    margin-left: 5px;
+}
+
+.input-group input {
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+    width: 100%;
+}
+
+.input-group input:focus {
+    border-color: #007bff;
+    background-color: #f9fcff;
+}
+
+/* Avatar Circle Input */
+.avatar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.avatar-group label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #666;
+}
+
+#emoji-input {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    text-align: center;
+    border: 2px dashed #007bff;
+    border-radius: 50%; /* Circle shape */
+    background: #f0f4f8;
+    cursor: pointer;
+    outline: none;
+    transition: 0.3s;
+    caret-color: transparent; /* Hide text cursor */
+}
+
+#emoji-input:focus {
+    background: white;
+    border-style: solid;
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.avatar-group small {
+    font-size: 11px;
+    color: #999;
+}
+
+/* Join Button */
+#join-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+#join-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+/* --- 3. CHAT INTERFACE --- */
+#chat-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 10px 15px;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#message-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+    width: 200px;
+}
+
+#send-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- 4. LOGOUT BUTTON --- */
+#logout-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#logout-btn:hover {
+    background-color: #c82333;
+}
+
+/* --- 5. MAP MARKER STYLES --- */
+.emoji-marker {
+    background: none !important;
+    border: none !important;
+    font-size: 30px;
+    text-align: center;
+    line-height: 30px;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+}
+
+/* Wrapper to hold input + icon */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Make sure the input inside the wrapper takes full space */
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* Make room for the icon so text doesn't overlap */
+}
+
+/* Position the Eye Icon */
+.eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Hover effect for the eye */
+.eye-icon:hover svg {
+    stroke: #007bff; /* Blue when hovered */
+}
+
+/* Toggle Container */
+.mode-toggle {
+    display: flex;
+    background: #f0f2f5;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Individual Tab Buttons */
+.mode-toggle button {
+    flex: 1; /* Split width 50/50 */
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #666;
+    transition: 0.3s;
+}
+
+/* Active Tab Style (White background + Shadow) */
+.mode-toggle button.active {
+    background: white;
+    color: #007bff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Public Message Text */
+#public-message {
+    text-align: center;
+    background: #e9f7ef; /* Light green background */
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+    font-size: 14px;
+}
+
+#recenter-btn {
+    position: fixed;
+    bottom: 90px; /* Above the chat bar */
+    right: 20px;
+    z-index: 9999;
+    padding: 10px 15px;
+    background: white;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+#theme-btn {
+    position: fixed;
+    bottom: 140px; /* Above the Recenter button */
+    right: 20px;
+    z-index: 9999;
+    padding: 10px 15px;
+    background: white;
+    color: #333;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-weight: bold;
+    min-width: 100px;
+    transition: 0.3s;
+}
+
+#theme-btn:hover {
+    background: #f0f0f0;
+}
+
+/* Stream Controls Position */
+#stream-controls {
+    position: fixed;
+    bottom: 90px;
+    left: 20px;
+    z-index: 9999;
+}
+
+#go-live-btn {
+    background: #ff0000; /* Red */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
+    transition: 0.3s;
+}
+
+#go-live-btn:hover {
+    background: #cc0000;
+    transform: scale(1.05);
+}
+
+/* The URL Input Box */
+#stream-input-box {
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 5px;
+}
+
+#stream-url {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+/* --- THE PULSING LIVE MARKER --- */
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+.live-marker {
+    background: white !important;
+    border-radius: 50%;
+    border: 2px solid red !important;
+    animation: pulse-red 2s infinite; /* The glowing magic */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}

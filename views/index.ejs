@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Tracking App</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
+</head>
+
+<body>
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>Secure Tracking</h2>
+
+            <div class="mode-toggle">
+                <button id="tab-private" class="active">Private Room</button>
+                <button id="tab-public">Public Meetup</button>
+            </div>
+            
+            <div id="private-inputs">
+                <div class="input-group">
+                    <label>Room Details</label>
+                    <input type="text" id="room-input" placeholder="Room Name (eg: Family)" autocomplete="off">
+                    
+                    <div class="password-wrapper">
+                        <input type="password" id="password-input" placeholder="Room Password" autocomplete="off">
+                        <span id="toggle-password" class="eye-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="public-message" class="hidden">
+                <p>🌍 You are joining the <b>Global Public Map</b>.</p>
+                <p>Anyone online can see you here!</p>
+            </div>
+
+            <div class="avatar-group">
+                <label>Your Avatar</label>
+                <input type="text" id="emoji-input" value="🚗" >
+                <small id="emoji-help">Press ( Win + . ) or ( Cmd + Ctrl + Space ) for emojis</small>
+            </div>
+
+            <button id="join-btn">Join Map</button>
+        </div>
+    </div> 
+
+    <div id="map"></div>
+    
+    <button id="logout-btn" class="hidden">Leave Room</button>
+    <button id="recenter-btn" class="hidden">📍 Recenter</button>
+    <button id="theme-btn" class="hidden">☀️ Light</button>
+
+    <div id="stream-controls">
+        <button id="go-live-btn">📡 Go Live</button>
+        <div id="stream-input-box" class="hidden">
+            <input type="text" id="stream-url" placeholder="Paste YouTube/Twitch Link">
+            <button id="start-stream-btn">Start</button>
+            <button id="cancel-stream-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="chat-container" class="hidden">
+        <input type="text" id="message-input" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
