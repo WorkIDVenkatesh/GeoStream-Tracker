@@ -69,6 +69,7 @@ Now, let's turn it on!
 3.  Allow **Location Permission** when asked.
 4.  Open the same link in a **Second Tab** to test tracking two people!
 
+
 ---
 
 ## ❓ Troubleshooting (Common Errors)
@@ -93,6 +94,12 @@ Feel free to fork this project and add your own features!
 3.  Commit your Changes
 4.  Push to the Branch
 5.  Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
